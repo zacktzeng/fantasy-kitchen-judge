@@ -125,7 +125,7 @@ export default function FantasyKitchenJudge() {
                 placeholder="Tell us about your culinary masterpiece... What ingredients did you use? How did you prepare it? What makes it special?"
                 value={dishDescription}
                 onChange={(e) => setDishDescription(e.target.value)}
-                className="min-h-32 resize-none border-slate-200 focus:border-amber-400 focus:ring-amber-400"
+                className="min-h-32 resize-none border-slate-200 focus:border-amber-400 focus:ring-amber-400 bg-white text-black"
               />
             </div>
             <Button

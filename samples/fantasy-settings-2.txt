@@ -1,0 +1,3 @@
+- Flavor synergy should be weighted slightly higher than other categories.
+- Do not reward overly elaborate dishes that feel excessive.
+- Be more generous with bonus points if the dish fits a rustic or nomadic culture.
