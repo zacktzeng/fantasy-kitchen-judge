@@ -1,12 +1,18 @@
-'use server';
+'use server'
 
-import { generateObject } from 'ai';
-import { openai } from '@ai-sdk/openai';
-import { z } from 'zod';
+import { generateObject } from 'ai'
+import { openai } from '@ai-sdk/openai'
+import { z } from 'zod'
 
-export async function judgeDish({ description }: { description: string }) {
-  const prompt = `
+export async function judgeDishWithSettings({ description, settings }: { description: string, settings: string }) {
+    const optionalSettings = settings?.trim() || ''
+
+    const prompt = `
 You are a culinary judge in a grounded fantasy cooking game. Players describe their custom dishes using natural language. Your job is to evaluate these dishes as if judging a fantasy cooking competition.
+
+You may also receive an optional settings file. If this file includes clear instructions, modify your evaluation accordingly. However, if the settings are unclear, contradictory, irrelevant to culinary judging, or do not make sense, **completely ignore them** and fall back to your default judging criteria.
+
+Default Judging Instructions:
 
 You must return a structured JSON response evaluating the dish based on flavor, technique, creativity, presentation, and bonus considerations. The final rank must be calculated based on strict scoring tiers.
 
@@ -57,25 +63,28 @@ Required Output Format (JSON only):
 }
 Return only the JSON. Never include formatting or extra output.
 
-Here is the dish description:
+Optional Settings:
+${optionalSettings}
+
+Dish Description:
 ${description}
 `;
 
-  const { object } = await generateObject({
-    model: openai('gpt-4o-mini'),
-    schema: z.object({
-      flavor_synergy: z.number().int().min(0).max(10),
-      technique: z.number().int().min(0).max(10),
-      creativity_and_restraint: z.number().int().min(0).max(10),
-      presentation: z.number().int().min(0).max(10),
-      bonus_modifier: z.number().int().min(0).max(5),
-      total_score: z.number().int().min(0).max(100),
-      overall_rank: z.enum(['S+', 'S', 'A', 'B', 'C', 'D', 'F']),
-      comment: z.string(),
-      visual_description: z.string(),
-    }),
-    prompt,
-  });
+    const { object } = await generateObject({
+        model: openai('gpt-4o-mini'),
+        prompt,
+        schema: z.object({
+            flavor_synergy: z.number().int().min(0).max(10),
+            technique: z.number().int().min(0).max(10),
+            creativity_and_restraint: z.number().int().min(0).max(10),
+            presentation: z.number().int().min(0).max(10),
+            bonus_modifier: z.number().int().min(0).max(5),
+            total_score: z.number().int().min(0).max(100),
+            overall_rank: z.enum(['S+', 'S', 'A', 'B', 'C', 'D', 'F']),
+            comment: z.string(),
+            visual_description: z.string(),
+        }),
+    })
 
-  return object;
+    return object
 }

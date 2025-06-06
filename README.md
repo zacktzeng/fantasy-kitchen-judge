@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fantasy Kitchen Judge
 
-## Getting Started
+A whimsical web app where players submit fantasy-themed dishes and receive a structured critique from an AI culinary judge. Scoring covers flavor synergy, technique, creativity, presentation, and bonus considerations.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Interactive form to describe your fantasy dish
+- Optional upload for judging settings to customize the criteria
+- Real-time structured feedback with:
+    - Score breakdown (out of 45)
+    - Rank tier (S+, S, A, etc.)
+    - Judge’s comment and stylized visual description
+
+## How to Use
+
+1. Describe Your Dish
+
+    Enter your custom fantasy dish in natural language.
+
+2. (Optional) Upload Settings File
+
+    Customize the judging behavior by uploading a `.txt` file with judging guidelines.
+Use the provided example below to get started.
+
+3. Submit for Judgment
+
+    Click "Judge My Dish" and await the council’s verdict.
+
+## Example Settings File
+
+Create a file named `fantasy-settings.txt` with the following content:
+
+```txt
+Use stricter standards for presentation:
+- Deduct points if the visual imagery is confusing or contains modern elements.
+
+Increase scrutiny on flavor synergy:
+- Deduct up to 2 points if ingredient combinations are unconventional without justification.
+
+Emphasize storytelling bonus:
+- Only give 5/5 bonus if the dish ties into a local legend or cultural event.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Example Dish Description
+Paste this in the input field for testing:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```txt
+I created a Moonlit Lavender Venison Roast, using tender cuts of venison marinated in juniper berry wine and slow-roasted over elderwood embers. The meat is plated atop a puree of moon tubers and garnished with caramelized ghost onions and crushed frostpetal blossoms. A drizzle of fermented dew honey reduction completes the dish. The recipe is inspired by a mythic winter hunt beneath a lunar eclipse.
+```
