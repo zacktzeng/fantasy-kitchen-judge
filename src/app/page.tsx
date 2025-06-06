@@ -114,7 +114,7 @@ export default function FantasyKitchenJudge() {
                 onChange={handleFileChange}
                 className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
               />
-              <p className="text-xs text-slate-500">Upload a .txt or .json file with custom judging settings (optional)</p>
+              <p className="text-xs text-slate-500">Upload a .txt file with custom judging settings (optional)</p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="dish-description" className="text-slate-700 font-medium">
