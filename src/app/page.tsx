@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Loader2 } from "lucide-react"
 import { judgeDish } from "@/actions/judge-dish";
+import { judgeDishWithSettings } from "@/actions/judge-dish-with-settings";
 
 interface JudgeResult {
   rank: string
@@ -27,6 +28,7 @@ export default function FantasyKitchenJudge() {
   const [dishDescription, setDishDescription] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<JudgeResult | null>(null)
+  const [settingsText, setSettingsText] = useState("")
 
   const getRankColor = (rank: string) => {
     switch (rank) {
@@ -49,6 +51,13 @@ export default function FantasyKitchenJudge() {
     }
   }
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const text = await file.text()
+    setSettingsText(text)
+  }
+
   const handleJudgeDish = async () => {
     if (!dishDescription.trim()) return;
 
@@ -56,7 +65,7 @@ export default function FantasyKitchenJudge() {
     setResult(null);
 
     try {
-      const data = await judgeDish({ description: dishDescription });
+      const data = await judgeDishWithSettings({ description: dishDescription, settings: settingsText });
       setResult({
         rank: data.overall_rank,
         totalScore: data.total_score,
@@ -94,6 +103,31 @@ export default function FantasyKitchenJudge() {
             <CardTitle className="text-2xl font-serif text-slate-700 text-center">Present Your Creation</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Optional Settings File Upload */}
+            <div className="space-y-2">
+              <Label htmlFor="settings-file" className="text-slate-700 font-medium">
+                Optional Settings File
+              </Label>
+              <input
+                id="settings-file"
+                type="file"
+                accept=".txt,.json"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      setSettingsText(reader.result as string); // add this to state
+                    };
+                    reader.readAsText(file);
+                  } else {
+                    setSettingsText('');
+                  }
+                }}
+                className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
+              />
+              <p className="text-xs text-slate-500">Upload a .txt or .json file with custom judging settings (optional)</p>
+            </div>
             <div className="space-y-2">
               <Label htmlFor="dish-description" className="text-slate-700 font-medium">
                 Describe Your Dish
