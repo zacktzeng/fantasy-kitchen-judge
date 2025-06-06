@@ -1,14 +1,13 @@
 "use client"
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Loader2 } from "lucide-react"
-import { judgeDish } from "@/actions/judge-dish";
 import { judgeDishWithSettings } from "@/actions/judge-dish-with-settings";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 interface JudgeResult {
   rank: string
@@ -112,18 +111,7 @@ export default function FantasyKitchenJudge() {
                 id="settings-file"
                 type="file"
                 accept=".txt,.json"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                      setSettingsText(reader.result as string); // add this to state
-                    };
-                    reader.readAsText(file);
-                  } else {
-                    setSettingsText('');
-                  }
-                }}
+                onChange={handleFileChange}
                 className="block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
               />
               <p className="text-xs text-slate-500">Upload a .txt or .json file with custom judging settings (optional)</p>
@@ -206,7 +194,7 @@ export default function FantasyKitchenJudge() {
               {/* Judge's Comment */}
               <blockquote className="border-l-4 border-amber-400 bg-amber-50 p-6 rounded-r-lg mb-6">
                 <div className="text-slate-700 font-medium mb-2">Judge's Verdict:</div>
-                <p className="text-slate-800 leading-relaxed italic">"{result.judgeComment}"</p>
+                <p className="text-slate-800 leading-relaxed italic">&ldquo;{result.judgeComment}&rdquo;</p>
               </blockquote>
 
               {/* Visual Description */}
