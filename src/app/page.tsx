@@ -193,7 +193,7 @@ export default function FantasyKitchenJudge() {
 
               {/* Judge's Comment */}
               <blockquote className="border-l-4 border-amber-400 bg-amber-50 p-6 rounded-r-lg mb-6">
-                <div className="text-slate-700 font-medium mb-2">Judge's Verdict:</div>
+                <div className="text-slate-700 font-medium mb-2">Judge&apos;s Verdict:</div>
                 <p className="text-slate-800 leading-relaxed italic">&ldquo;{result.judgeComment}&rdquo;</p>
               </blockquote>
 
